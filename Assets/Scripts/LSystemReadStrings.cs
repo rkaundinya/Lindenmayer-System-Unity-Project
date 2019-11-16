@@ -8,7 +8,6 @@ public class LSystemReadStrings : MonoBehaviour
     {
         foreach (var lString in lStrings)
         {
-            // Debug.Log(lString);
             foreach (var c in lString)
                 if (lStringData.LSystemCharToActionMap.ContainsKey(c))
                 {

@@ -44,8 +44,7 @@
     <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
-  <ItemGroup>     <Compile Include="Assets\Scripts\AddCharMappingToLStringDict.cs" />
-     <Compile Include="Assets\Scripts\GenerateLStrings.cs" />
+  <ItemGroup>     <Compile Include="Assets\Scripts\GenerateLStrings.cs" />
      <Compile Include="Assets\Scripts\LStringData.cs" />
      <Compile Include="Assets\Scripts\LSystemActions.cs" />
      <Compile Include="Assets\Scripts\LSystemGenerationRules.cs" />

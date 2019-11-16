@@ -41,33 +41,4 @@ public class GenerateLStrings : MonoBehaviour
             lStringData.LSystemStrings.Add(currentLString);
         }
     }
-
-    /* public static void GenerateStrings (string axiom, LStringData lStringData)
-    {
-        lStringData.LSystemStrings.Add(axiom);
-
-        for (int i = 0; i < axiom.Length; ++i)
-        {
-            string replaceWithString = LSystemGenerationRules.ReplaceChar(
-                    axiom[i], "F-F", lStringData);
-            
-            Debug.Log(replaceWithString);
-            
-            if (replaceWithString != axiom[i].ToString())
-            {
-                axiom.Insert(i, replaceWithString);
-                i += replaceWithString.Length;
-            }
-
-            if (i == axiom.Length - 1)
-            {
-                lStringData.LSystemStrings[0] = axiom;
-            }
-        } */
-
-        /* foreach (var symbol in axiom)
-        {
-            NonDummyCharReplace(symbol, "F-F");
-        } 
-    } */
 }

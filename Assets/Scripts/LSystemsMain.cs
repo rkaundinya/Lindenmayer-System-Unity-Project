@@ -1,15 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LSystemsMain : MonoBehaviour
 {
-    // LSystemGenerationRules testObject = new LSystemGenerationRules();
-    // LSystemGenerationRules lSystemGenerationRules = new LSystemGenerationRules();
+    [SerializeField]
+    private RuleMap[] mutationRules;
+
     LStringData lStringData = new LStringData();
 
     private void Awake() 
     {
-        LSystemGenerationRules.AddRuleToRuleMap('F', "F-F", lStringData);
+        AddUserInputtedRulesToLStringDataRuleMap();
+        // LSystemGenerationRules.AddRuleToRuleMap('F', "F-F", lStringData);
         AddCharActionPairToLStringCharMap('F', 
             new Action<GameObject>(LSystemActions.TestFunc2), lStringData);
         GenerateLStrings.GenerateStringMutations("F", 3, lStringData);
@@ -23,6 +26,15 @@ public class LSystemsMain : MonoBehaviour
             lStringData);
     }
 
+    private void AddUserInputtedRulesToLStringDataRuleMap()
+    {
+        foreach (var rule in mutationRules)
+        {
+            LSystemGenerationRules.AddRuleToRuleMap(rule.charToMutate, 
+                rule.stringToMutateTo, lStringData);
+        }
+    }
+
     private void AddDummyCharToLStringDummyCommands (char symbol, LStringData lStringData)
     {
         lStringData.LSystemDummyCommands.Add(symbol);
@@ -33,4 +45,11 @@ public class LSystemsMain : MonoBehaviour
     {
         lStringData.LSystemCharToActionMap.Add(symbol, actionToDo);
     }
+}
+
+[Serializable]
+public struct RuleMap
+{
+    public char charToMutate;
+    public string stringToMutateTo;
 }
