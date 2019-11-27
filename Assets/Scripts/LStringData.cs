@@ -18,4 +18,8 @@ public class LStringData
     }
 }
 
-// TODO... Add a Clear() method to clear all LString data if you so wish
+enum ActionType
+{
+    MOVE_OBJECT,
+    CHANGE_OBJECT_ANGLE
+}

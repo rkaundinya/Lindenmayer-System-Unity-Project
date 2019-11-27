@@ -8,10 +8,16 @@ public class LSystemReadStrings : MonoBehaviour
     {
         foreach (var lString in lStrings)
         {
+            Debug.Log("The current string is " + lString);
             foreach (var c in lString)
                 if (lStringData.LSystemCharToActionMap.ContainsKey(c))
                 {
-                    lStringData.LSystemCharToActionMap[c].DynamicInvoke(invokingObject);
+                    if (lStringData.LSystemCharToActionMap[c] != null)
+                    {
+                        // StartCoroutine(LSystemActions.MoveForward(invokingObject, 1f, 10f));
+                        
+                        // lStringData.LSystemCharToActionMap[c].DynamicInvoke(invokingObject, 1f, 10f);
+                    }
                 }
         }
     }
