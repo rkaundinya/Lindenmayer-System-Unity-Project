@@ -44,12 +44,21 @@
     <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
-  <ItemGroup>     <Compile Include="Assets\Scripts\GenerateLStrings.cs" />
+  <ItemGroup>     <Compile Include="Assets\Scripts\ActionType.cs" />
+     <Compile Include="Assets\Scripts\Custom Editor\LSystemsMainEditor.cs" />
+     <Compile Include="Assets\Scripts\CylinderGrowth.cs" />
+     <Compile Include="Assets\Scripts\CylinderSingleSideGrowth.cs" />
+     <Compile Include="Assets\Scripts\GenerateLStrings.cs" />
      <Compile Include="Assets\Scripts\LStringData.cs" />
      <Compile Include="Assets\Scripts\LSystemActions.cs" />
      <Compile Include="Assets\Scripts\LSystemGenerationRules.cs" />
      <Compile Include="Assets\Scripts\LSystemReadStrings.cs" />
+     <Compile Include="Assets\Scripts\LSystemUserSpecifications.cs" />
      <Compile Include="Assets\Scripts\LSystemsMain.cs" />
+     <Compile Include="Assets\Scripts\TestScript.cs" />
+     <Compile Include="Assets\Tween\Demo\TweenDemo.cs" />
+     <Compile Include="Assets\Tween\Tween.cs" />
+     <None Include="Assets\Tween\Readme.txt" />
  <Reference Include="Unity.XR.Management">
  <HintPath>/Users/Ram/Documents/GitHub/Lindenmayer-System-Unity-Project/Library/ScriptAssemblies/Unity.XR.Management.dll</HintPath>
  </Reference>

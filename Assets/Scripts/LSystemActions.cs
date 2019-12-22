@@ -9,17 +9,16 @@ public class LSystemActions : MonoBehaviour
     }
 
     public static void MoveCube(GameObject gameObject, float speed, float journeyLength, float startTime, 
-        Vector3 startPosition, Vector3 endPosition)
+        Vector3 startPosition, Vector3 endPosition, bool movingCube)
     {
         // movementFinished = false;
         float distCovered = (Time.time - startTime) * speed;
         float fractionOfJourney = distCovered / journeyLength;
         gameObject.transform.position = Vector3.Lerp(startPosition, endPosition, fractionOfJourney);
-        /* if (distCovered == journeyLength)
+        if (fractionOfJourney >= 1)
         {
-            movementFinished = true;
-            Debug.Log("Movement finished is " + movementFinished);
-        } */
+            movingCube = false;
+        }
     }
     
     /* public static IEnumerator MoveForward(GameObject gameObject, float moveSpeed, 

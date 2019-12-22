@@ -1,24 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LSystemReadStrings : MonoBehaviour
 {
-    public static void ReadSpecificStringAction(List<string> lStrings, 
-        GameObject invokingObject, LStringData lStringData)
+    public static void ReadSpecificStringAction(LStringData lStringData)
     {
-        foreach (var lString in lStrings)
+        foreach (var lString in lStringData.LSystemStrings)
         {
-            Debug.Log("The current string is " + lString);
+            Debug.Log("The current string is " + lStringData.LSystemStrings);
             foreach (var c in lString)
+            {
                 if (lStringData.LSystemCharToActionMap.ContainsKey(c))
                 {
-                    if (lStringData.LSystemCharToActionMap[c] != null)
+                    if (lStringData.LSystemCharToActionMap[c] == ActionType.MOVE_OBJECT)
                     {
-                        // StartCoroutine(LSystemActions.MoveForward(invokingObject, 1f, 10f));
-                        
-                        // lStringData.LSystemCharToActionMap[c].DynamicInvoke(invokingObject, 1f, 10f);
+                        Instantiate(lStringData.prefabToSpawn, 
+                            new Vector3 (0, 0, 0), Quaternion.identity);
                     }
                 }
+            }
+        }
+    }
+
+    IEnumerator scaleCylinder( Transform trans )
+    {
+        while (true)
+        {
+            trans.localScale += new Vector3( 0, 0.1f, 0 );
+            yield return null;
         }
     }
 
