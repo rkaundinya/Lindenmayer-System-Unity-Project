@@ -6,6 +6,8 @@ public class LSystemReadStrings : MonoBehaviour
 {
     public static void ReadSpecificStringAction(LStringData lStringData)
     {
+        Vector3 lastInstantiationLocation = Vector3.zero;
+
         foreach (var lString in lStringData.LSystemStrings)
         {
             Debug.Log("The current string is " + lStringData.LSystemStrings);
@@ -15,8 +17,11 @@ public class LSystemReadStrings : MonoBehaviour
                 {
                     if (lStringData.LSystemCharToActionMap[c] == ActionType.MOVE_OBJECT)
                     {
+                        Vector3 newInstantiationLocation = lastInstantiationLocation 
+                            + Vector3.forward;
                         Instantiate(lStringData.prefabToSpawn, 
-                            new Vector3 (0, 0, 0), Quaternion.identity);
+                            newInstantiationLocation, Quaternion.identity);
+                        lastInstantiationLocation = newInstantiationLocation;
                     }
                 }
             }

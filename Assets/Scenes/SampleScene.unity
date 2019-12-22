@@ -174,9 +174,9 @@ MonoBehaviour:
     angleRandomness: 0
     lengthRandomness: 0
     growthSpeedRandomness: 0
-    totalNumOfMutations: 2
-  openTab: 0
-  currentTabName: Mutation Rules
+    totalNumOfMutations: 3
+  openTab: 1
+  currentTabName: LSystem Parameters
 --- !u!136 &33531528
 CapsuleCollider:
   m_ObjectHideFlags: 0
