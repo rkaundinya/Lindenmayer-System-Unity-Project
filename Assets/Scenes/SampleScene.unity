@@ -161,9 +161,11 @@ MonoBehaviour:
   - charToMutate: 70
     stringToMutateTo: F-F
     isADummyCommand: 0
+    actionType: 1
   - charToMutate: 88
     stringToMutateTo: F-X-[F-F]
     isADummyCommand: 1
+    actionType: 0
   lSystemSettings:
     axiom: X
     defaultAngle: 0
@@ -172,9 +174,9 @@ MonoBehaviour:
     angleRandomness: 0
     lengthRandomness: 0
     growthSpeedRandomness: 0
-    totalNumOfMutations: 3
-  openTab: 1
-  currentTabName: LSystem Parameters
+    totalNumOfMutations: 2
+  openTab: 0
+  currentTabName: Mutation Rules
 --- !u!136 &33531528
 CapsuleCollider:
   m_ObjectHideFlags: 0

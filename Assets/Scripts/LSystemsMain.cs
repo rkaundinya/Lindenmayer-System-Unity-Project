@@ -12,28 +12,15 @@ public class LSystemsMain : MonoBehaviour
     private RuleMap[] mutationRules;
     [SerializeField]
     private LSystemSettings lSystemSettings;
-    private Vector3 startPosition;
-    private Vector3 endPosition;
-    private float speed = 3.0f;
-    private float startTime; 
-    private float journeyLength = 10f;
-    private bool readLStringsFuncCalled = false;
 
     [HideInInspector]
     public int openTab;
     [HideInInspector]
     public string currentTabName;
 
-    // private LStringData lStringData = new LStringData();
-
     private void Awake() 
     {
-        lStringDataContainer.ClearAllData();
-        AddUserInputtedRulesToLStringDataRuleMap();
-        // LSystemGenerationRules.AddRuleToRuleMap('F', "F-F", lStringData);
-        AddCharActionPairToLStringCharMap('F', 
-            ActionType.MOVE_OBJECT, lStringDataContainer);
-        lStringDataContainer.prefabToSpawn = prefabToSpawn;
+        InitializeLStringData();
         GenerateLStrings.GenerateStringMutations(lSystemSettings.axiom, 
             lSystemSettings.totalNumOfMutations, lStringDataContainer);
         lStringDataContainer.PrintFinalLString();
@@ -41,38 +28,19 @@ public class LSystemsMain : MonoBehaviour
 
     private void Start() 
     {
-        startPosition = transform.position;
-        endPosition = startPosition + new Vector3(1,1,journeyLength);
-        startTime = Time.time;
-        // MoveCube();
-
         LSystemReadStrings.ReadSpecificStringAction(lStringDataContainer);
     }
 
     private void Update() 
     {
-        /* if (!readLStringsFuncCalled)
-        {
-            LSystemReadStrings.ReadSpecificStringAction(gameObject, lStringData.LSystemStrings, 
-                lStringData, lSystemSettings);
-            readLStringsFuncCalled = true;
-        } */
+
     }
 
-    private void MoveCube()
+    private void InitializeLStringData()
     {
-        float distCovered = (Time.time - startTime) * speed;
-        float fractionOfJourney = distCovered / journeyLength;
-        
-        while (fractionOfJourney < 1)
-        {
-            distCovered = (Time.time - startTime) * speed;
-            fractionOfJourney = distCovered / journeyLength;
-            Debug.Log("Cube is still traveling");
-            transform.position = Vector3.Lerp(startPosition, endPosition, fractionOfJourney);
-        }
-        if (fractionOfJourney >= 1)
-        {}
+        lStringDataContainer.ClearAllData();
+        AddUserInputtedRulesToLStringDataRuleMap();
+        lStringDataContainer.prefabToSpawn = prefabToSpawn;
     }
 
     private void AddUserInputtedRulesToLStringDataRuleMap()
@@ -85,6 +53,8 @@ public class LSystemsMain : MonoBehaviour
             {
                 AddDummyCharToLStringDummyCommands(rule.charToMutate, lStringDataContainer);
             }
+            AddCharActionPairToLStringCharMap(rule.charToMutate, rule.actionType, 
+                lStringDataContainer);
         }
     }
 

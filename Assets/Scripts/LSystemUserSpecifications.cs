@@ -7,6 +7,7 @@ public struct RuleMap
     public char charToMutate;
     public string stringToMutateTo;
     public bool isADummyCommand;
+    public ActionType actionType;
 }
 
 [Serializable]
