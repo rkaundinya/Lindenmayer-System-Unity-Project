@@ -24,4 +24,16 @@ public struct LSystemSettings
     [Range(0.0f, 100.0f)]
     public float growthSpeedRandomness;
     public int totalNumOfMutations;
+
+    public void ResetData()
+    {
+        axiom = null;
+        defaultAngle = 0f;
+        defaultLength = 0f;
+        defaultGrowthSpeed = 0f;
+        angleRandomness = 0f;
+        lengthRandomness = 0f;
+        growthSpeedRandomness = 0f;
+        totalNumOfMutations = 1;
+    }
 }

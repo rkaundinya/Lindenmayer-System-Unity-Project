@@ -22,7 +22,6 @@ public class GenerateLStrings : MonoBehaviour
 
         for (int currentIteration = 1; currentIteration < numOfIterations; ++currentIteration)
         {
-            Debug.Log("Generate string loop is running");
             for (int i = 0; i < currentLString.Length; ++i)
             {
                 char currentChar = currentLString[i];

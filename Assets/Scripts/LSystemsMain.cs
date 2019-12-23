@@ -28,7 +28,7 @@ public class LSystemsMain : MonoBehaviour
 
     private void Start() 
     {
-        LSystemReadStrings.ReadSpecificStringAction(lStringDataContainer);
+        LSystemReadStrings.ReadFinalString(lStringDataContainer);
     }
 
     private void Update() 
@@ -41,6 +41,7 @@ public class LSystemsMain : MonoBehaviour
         lStringDataContainer.ClearAllData();
         AddUserInputtedRulesToLStringDataRuleMap();
         lStringDataContainer.prefabToSpawn = prefabToSpawn;
+        lStringDataContainer.CopyLSystemSettings( lSystemSettings );
     }
 
     private void AddUserInputtedRulesToLStringDataRuleMap()
@@ -61,7 +62,6 @@ public class LSystemsMain : MonoBehaviour
     private void AddDummyCharToLStringDummyCommands (char symbol, LStringData lStringData)
     {
         lStringData.LSystemDummyCommands.Add(symbol);
-        Debug.Log("A dummy command has been added");
     }
 
     private void AddCharActionPairToLStringCharMap(char symbol, ActionType actionToDo, 

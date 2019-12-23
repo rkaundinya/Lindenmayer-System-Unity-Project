@@ -5,7 +5,7 @@ public class LSystemActions : MonoBehaviour
 {
     public static void MoveForward(GameObject gameObject)
     {
-        gameObject.transform.position += Vector3.forward * 10;
+        gameObject.transform.position += Vector3.forward * 2;
     }
 
     public static void MoveCube(GameObject gameObject, float speed, float journeyLength, float startTime, 
@@ -19,6 +19,21 @@ public class LSystemActions : MonoBehaviour
         {
             movingCube = false;
         }
+    }
+
+    public static IEnumerator scaleCylinder( Transform trans, bool routineFinished )
+    {
+        routineFinished = false;
+        yield return new WaitForSeconds(3f);
+        Debug.Log("Coroutine finished after waiting 3 seconds");
+        routineFinished = true;
+        /* float endTime = Time.time + 3.0f;
+
+        while (Time.time < endTime)
+        {
+            trans.localScale += new Vector3( 0, 0.1f, 0 );
+            yield return null;
+        } */
     }
     
     /* public static IEnumerator MoveForward(GameObject gameObject, float moveSpeed, 

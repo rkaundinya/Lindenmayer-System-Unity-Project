@@ -4,36 +4,69 @@ using UnityEngine;
 
 public class LSystemReadStrings : MonoBehaviour
 {
-    public static void ReadSpecificStringAction(LStringData lStringData)
+    private static LSystemReadStrings _singleton;
+
+    public static void ReadFinalString(LStringData lStringData)
+    {
+        
+        RunTask( LoopThruStringAndInstantiate( lStringData ) );
+    }
+
+    private static void RunTask ( IEnumerator coroutine )
+    {
+        if ( _singleton == null )
+        {
+            var coroutineRunner = new GameObject ( "LString Reader" );
+            _singleton = coroutineRunner.AddComponent<LSystemReadStrings>();
+            coroutineRunner.hideFlags = HideFlags.HideInHierarchy;
+            _singleton.StartCoroutine( coroutine );
+        }
+    }
+
+    private static IEnumerator LoopThruStringAndInstantiate( LStringData lStringData )
     {
         Vector3 lastInstantiationLocation = Vector3.zero;
 
-        foreach (var lString in lStringData.LSystemStrings)
+        string finalString = lStringData.LSystemStrings[
+                lStringData.LSystemStrings.Count - 1];
+
+        foreach (var c in finalString)
         {
-            Debug.Log("The current string is " + lStringData.LSystemStrings);
-            foreach (var c in lString)
+            if (lStringData.LSystemCharToActionMap.ContainsKey(c))
             {
-                if (lStringData.LSystemCharToActionMap.ContainsKey(c))
+                switch ( lStringData.LSystemCharToActionMap[c] )
                 {
-                    if (lStringData.LSystemCharToActionMap[c] == ActionType.MOVE_OBJECT)
-                    {
+                    case ActionType.MOVE_OBJECT:
                         Vector3 newInstantiationLocation = lastInstantiationLocation 
                             + Vector3.forward;
+                        GameObject instantiatedPrefab = 
                         Instantiate(lStringData.prefabToSpawn, 
                             newInstantiationLocation, Quaternion.identity);
-                        lastInstantiationLocation = newInstantiationLocation;
-                    }
+                            lastInstantiationLocation = newInstantiationLocation;
+                        yield return scaleCylinder( instantiatedPrefab.transform, lStringData );
+                        break;
+                    default: 
+                        yield return null;
+                        break;
                 }
+            }
+            else
+            {
+                yield return null;
             }
         }
     }
 
-    IEnumerator scaleCylinder( Transform trans )
+    private static IEnumerator scaleCylinder( Transform trans, LStringData lStringData )
     {
-        while (true)
+        Vector3 originalScale = trans.localScale;
+        Vector3 targetScale = originalScale + 
+            new Vector3(0, lStringData.GetLSystemSettings().defaultLength, 0);
+
+        while ( trans.localScale.y < targetScale.y )
         {
-            trans.localScale += new Vector3( 0, 0.1f, 0 );
-            yield return null;
+            trans.localScale += new Vector3 (0, 0.1f, 0);
+            yield return new WaitForSeconds(0.05f);
         }
     }
 

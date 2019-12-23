@@ -15,7 +15,7 @@ public class CylinderGrowth : MonoBehaviour
 
     private void Start() 
     {
-        StartCoroutine( scaleCylinder( this.transform ) );    
+        // StartCoroutine( scaleCylinder( this.transform ) );    
     }
 
     IEnumerator scaleCylinder( Transform trans )

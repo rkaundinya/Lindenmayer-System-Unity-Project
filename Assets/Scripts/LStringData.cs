@@ -12,6 +12,17 @@ public class LStringData : ScriptableObject
     public Dictionary<char, ActionType> LSystemCharToActionMap 
         = new Dictionary<char, ActionType>();
     public GameObject prefabToSpawn;
+    private LSystemSettings _lSystemSettings;
+
+    public void CopyLSystemSettings( LSystemSettings lSystemSettings )
+    {
+        _lSystemSettings = lSystemSettings;
+    }
+
+    public LSystemSettings GetLSystemSettings()
+    {
+        return _lSystemSettings;
+    }
 
     public void ClearAllData()
     {
@@ -20,6 +31,7 @@ public class LStringData : ScriptableObject
         StringMutationRuleMap.Clear();
         LSystemCharToActionMap.Clear();
         prefabToSpawn = null;
+        _lSystemSettings.ResetData();
     }
 
     public void PrintFinalLString()
