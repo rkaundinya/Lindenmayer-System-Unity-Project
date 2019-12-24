@@ -14,15 +14,12 @@ public class LSystemsMain : MonoBehaviour
     private LSystemCharActionPairs[] charActionPairs;
     [SerializeField]
     private LSystemSettings lSystemSettings;
+    private int numOfLStringCharTypes;
 
     [HideInInspector]
     public int openTab;
     [HideInInspector]
     public string currentTabName;
-    [HideInInspector]
-    public string currentLetterChoice;
-    [HideInInspector]
-    public int numOfLStringCharTypes;
 
     private void Awake() 
     {
@@ -46,6 +43,14 @@ public class LSystemsMain : MonoBehaviour
         lStringDataContainer.CopyLSystemSettings( lSystemSettings );
     }
 
+    public void OnEditorDataUpdate()
+    {
+        lStringDataContainer.LStringCharacterTypes.Clear();
+        AddUniqueUserInputCharsToLStringCharTypes();
+        UpdateNumOfCharActionPairs();
+        UpdateCharOfEachCharActionPair();
+    }
+
     private void AddUserInputtedRulesToLStringDataRuleMap()
     {
         foreach (var rule in mutationRules)
@@ -65,17 +70,8 @@ public class LSystemsMain : MonoBehaviour
         }
     }
 
-    public void OnEditorDataUpdate()
-    {
-        AddUniqueUserInputCharsToLStringCharTypes();
-        UpdateNumOfCharActionPairs();
-        UpdateCharOfEachCharActionPair();
-    }
-
     private void AddUniqueUserInputCharsToLStringCharTypes()
     {
-        lStringDataContainer.LStringCharacterTypes.Clear();
-
         foreach (var rule in mutationRules)
         {
             foreach ( var character in rule.stringToMutateTo )
@@ -85,6 +81,12 @@ public class LSystemsMain : MonoBehaviour
                 {
                     lStringDataContainer.LStringCharacterTypes.Add(character);
                 }  
+            }
+
+            if (lStringDataContainer.LStringCharacterTypes.Contains (
+                rule.charToMutate ) == false )
+            {
+                lStringDataContainer.LStringCharacterTypes.Add( rule.charToMutate );
             }
         }
 
@@ -103,7 +105,7 @@ public class LSystemsMain : MonoBehaviour
     private void AddCharActionPairToLStringCharMap(char symbol, ActionType actionToDo, 
         LStringData lStringData)
     {
-        lStringData.LSystemCharToActionMap.Add(symbol, actionToDo);
+        lStringData.LSystemCharToActionMap.Add( symbol, actionToDo );
     }
 
     public LStringData GetLStringData()
@@ -113,7 +115,7 @@ public class LSystemsMain : MonoBehaviour
 
     private void UpdateNumOfCharActionPairs()
     {
-        charActionPairs = new LSystemCharActionPairs[numOfLStringCharTypes];
+        Array.Resize( ref charActionPairs, numOfLStringCharTypes );
     }
 
     private void UpdateCharOfEachCharActionPair()

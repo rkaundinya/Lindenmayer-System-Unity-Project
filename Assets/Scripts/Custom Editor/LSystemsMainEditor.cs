@@ -39,7 +39,7 @@ public class LSystemsMainEditor : Editor
             soTarget.ApplyModifiedProperties();
         }
 
-        // Check if changes to tabs have been changed
+        // Check if tabs have been changed
         // If so apply those changes to LSystemsMain variables
         EditorGUI.BeginChangeCheck();
 
@@ -61,7 +61,6 @@ public class LSystemsMainEditor : Editor
 
         if ( EditorGUI.EndChangeCheck() )
         {
-            targetScript.OnEditorDataUpdate();
             soTarget.ApplyModifiedProperties();
             GUI.FocusControl(null);
         }
@@ -85,8 +84,8 @@ public class LSystemsMainEditor : Editor
 
         if ( EditorGUI.EndChangeCheck() )
         {
-            targetScript.OnEditorDataUpdate();
             soTarget.ApplyModifiedProperties();
+            targetScript.OnEditorDataUpdate();
         }
 
         if ( GUILayout.Button( "Print Stored LString Character Types" ) )
