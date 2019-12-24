@@ -10,6 +10,7 @@ public class LSystemsMainEditor : Editor
     private SerializedProperty lStringDataContainer;
     private SerializedProperty prefabToSpawn;
     private SerializedProperty mutationRules;
+    private SerializedProperty charActionPairs;
     private SerializedProperty lSystemSettings;
 
     private void OnEnable() 
@@ -20,6 +21,7 @@ public class LSystemsMainEditor : Editor
         lStringDataContainer = soTarget.FindProperty("lStringDataContainer");
         prefabToSpawn = soTarget.FindProperty("prefabToSpawn");
         mutationRules = soTarget.FindProperty("mutationRules");
+        charActionPairs = soTarget.FindProperty("charActionPairs");
         lSystemSettings = soTarget.FindProperty("lSystemSettings");
     }
 
@@ -42,7 +44,7 @@ public class LSystemsMainEditor : Editor
         EditorGUI.BeginChangeCheck();
 
         targetScript.openTab = GUILayout.Toolbar( targetScript.openTab, 
-            new string [] { "Mutation Rules", "LSystem Parameters" } );
+            new string [] { "Mutation Rules", "Action Map", "LSystem Parameters" } );
 
         switch ( targetScript.openTab )
         {
@@ -50,12 +52,16 @@ public class LSystemsMainEditor : Editor
                 targetScript.currentTabName = "Mutation Rules";
                 break;
             case 1:
+                targetScript.currentTabName = "Action Map";
+                break;
+            case 2:
                 targetScript.currentTabName = "LSystem Parameters";
                 break;
         }
 
         if ( EditorGUI.EndChangeCheck() )
         {
+            targetScript.OnEditorDataUpdate();
             soTarget.ApplyModifiedProperties();
             GUI.FocusControl(null);
         }
@@ -68,7 +74,9 @@ public class LSystemsMainEditor : Editor
         {
             case "Mutation Rules":
                 EditorGUILayout.PropertyField(mutationRules);
-                // EditorGUILayout.PropertyField(lStringDataContainer);
+                break;
+            case "Action Map":
+                EditorGUILayout.PropertyField(charActionPairs);
                 break;
             case "LSystem Parameters":
                 EditorGUILayout.PropertyField(lSystemSettings);
@@ -77,12 +85,18 @@ public class LSystemsMainEditor : Editor
 
         if ( EditorGUI.EndChangeCheck() )
         {
+            targetScript.OnEditorDataUpdate();
             soTarget.ApplyModifiedProperties();
+        }
+
+        if ( GUILayout.Button( "Print Stored LString Character Types" ) )
+        {
+            targetScript.GetLStringData().PrintAllLStringCharacters();
         }
 
         if ( GUILayout.Button("Display Final LString") )
         {
             targetScript.GetLStringData().PrintFinalLString();
         }
-    }    
+    }
 }

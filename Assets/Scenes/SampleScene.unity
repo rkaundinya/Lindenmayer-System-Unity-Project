@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 33531529}
   - component: {fileID: 33531528}
   - component: {fileID: 33531527}
-  - component: {fileID: 33531532}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -163,21 +162,38 @@ MonoBehaviour:
     stringToMutateTo: F-F
     isADummyCommand: 0
     actionType: 1
+    choiceIndex: 0
+    currentLetterChoice: 
   - charToMutate: 88
     stringToMutateTo: F-X-[F-F]
     isADummyCommand: 1
+    actionType: 2
+    choiceIndex: 0
+    currentLetterChoice: 
+  charActionPairs:
+  - character: 70
+    actionType: 0
+  - character: 45
+    actionType: 0
+  - character: 88
+    actionType: 0
+  - character: 91
+    actionType: 0
+  - character: 93
     actionType: 0
   lSystemSettings:
     axiom: X
-    defaultAngle: 0
-    defaultLength: 0
-    defaultGrowthSpeed: 0
+    growthAngle: -45
+    growthLength: 3
+    growthSpeed: 0
     angleRandomness: 0
     lengthRandomness: 0
     growthSpeedRandomness: 0
     totalNumOfMutations: 3
-  openTab: 1
-  currentTabName: LSystem Parameters
+  openTab: 0
+  currentTabName: Mutation Rules
+  currentLetterChoice: A
+  numOfLStringCharTypes: 5
 --- !u!136 &33531528
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -253,18 +269,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &33531532
+--- !u!1 &480046603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 480046605}
+  - component: {fileID: 480046604}
+  m_Layer: 0
+  m_Name: Test Object
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &480046604
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 33531526}
+  m_GameObject: {fileID: 480046603}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5af4a39987d0449dea3b72914f74516f, type: 3}
+  m_Script: {fileID: 11500000, guid: ac8dec6cb2a424629b754f5436947125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  value2: 3
+--- !u!4 &480046605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480046603}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.2868157, y: 0.82057476, z: 5.199258}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

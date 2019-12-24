@@ -10,7 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc7781f36732b4983b1cb70474da7404, type: 3}
-  m_Name: Test Cube Data Container
+  m_Name: Growing Cylinder Data Container
   m_EditorClassIdentifier: 
-  LSystemStrings: []
-  LSystemDummyCommands: 
+  LSystemStrings:
+  - X
+  - F-X-[F-F]
+  - F-F-F-X-[F-F]-[F-F-F-F]
+  LSystemDummyCommands: 5800
+  prefabToSpawn: {fileID: 2603027414354620467, guid: d618a24fa0c164abc979a9cf11c5a014,
+    type: 3}

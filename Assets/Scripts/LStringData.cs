@@ -6,9 +6,10 @@ using UnityEngine;
     menuName = "LSystem Data Container")]
 public class LStringData : ScriptableObject
 {
-    public List <string> LSystemStrings = new List<string>();
+    public HashSet<char> LStringCharacterTypes = new HashSet<char>();
     public List<char> LSystemDummyCommands = new List<char>();
     public Dictionary<char, string> StringMutationRuleMap = new Dictionary<char, string>();
+    public List <string> LSystemStrings = new List<string>();
     public Dictionary<char, ActionType> LSystemCharToActionMap 
         = new Dictionary<char, ActionType>();
     public GameObject prefabToSpawn;
@@ -26,9 +27,10 @@ public class LStringData : ScriptableObject
 
     public void ClearAllData()
     {
-        LSystemStrings.Clear();
+        LStringCharacterTypes.Clear();
         LSystemDummyCommands.Clear();
         StringMutationRuleMap.Clear();
+        LSystemStrings.Clear();
         LSystemCharToActionMap.Clear();
         prefabToSpawn = null;
         _lSystemSettings.ResetData();
@@ -37,7 +39,17 @@ public class LStringData : ScriptableObject
     public void PrintFinalLString()
     {
         Debug.Log(LSystemStrings[LSystemStrings.Count - 1]);
-        Console.Write(LSystemStrings[LSystemStrings.Count - 1]);
+    }
+
+    public void PrintAllLStringCharacters()
+    {
+        string allCharacters = "";
+        foreach (var character in LStringCharacterTypes)
+        {
+            allCharacters += character.ToString();
+        }
+
+        Debug.Log ( "Stored LString Characters are: " + allCharacters );
     }
 }
 
