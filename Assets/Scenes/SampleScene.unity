@@ -159,41 +159,36 @@ MonoBehaviour:
     type: 3}
   mutationRules:
   - charToMutate: 70
-    stringToMutateTo: F-F
-    isADummyCommand: 0
-    actionType: 1
-    choiceIndex: 0
-    currentLetterChoice: 
+    stringToMutateTo: F-X
   - charToMutate: 88
-    stringToMutateTo: F-X-[F-F]
-    isADummyCommand: 1
-    actionType: 2
-    choiceIndex: 0
-    currentLetterChoice: 
+    stringToMutateTo: '[F-X-F]'
   charActionPairs:
   - character: 70
-    actionType: 0
+    isADummyCommand: 0
+    actionType: 1
   - character: 45
+    isADummyCommand: 0
     actionType: 0
   - character: 88
-    actionType: 0
+    isADummyCommand: 0
+    actionType: 2
   - character: 91
+    isADummyCommand: 0
     actionType: 0
   - character: 93
+    isADummyCommand: 0
     actionType: 0
   lSystemSettings:
-    axiom: X
+    axiom: F
     growthAngle: -45
     growthLength: 3
     growthSpeed: 0
     angleRandomness: 0
     lengthRandomness: 0
     growthSpeedRandomness: 0
-    totalNumOfMutations: 3
-  openTab: 0
-  currentTabName: Mutation Rules
-  currentLetterChoice: A
-  numOfLStringCharTypes: 5
+    totalNumOfMutations: 2
+  openTab: 1
+  currentTabName: Action Map
 --- !u!136 &33531528
 CapsuleCollider:
   m_ObjectHideFlags: 0
