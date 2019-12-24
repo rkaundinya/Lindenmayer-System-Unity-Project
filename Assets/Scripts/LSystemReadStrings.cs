@@ -27,9 +27,17 @@ public class LSystemReadStrings : MonoBehaviour
     {
         GameObject instantiatedPrefab = lStringData.prefabToSpawn;
         Vector3 lastInstantiationLocation = Vector3.zero;
-        // bool newInstantiationNeeded = false;
+
         string finalString = lStringData.LSystemStrings[
                 lStringData.LSystemStrings.Count - 1];
+        int numOfCharactersInFinalLString = finalString.Length;
+        Vector3[] randomPositions = GenerateSetOfRandomNums ( 
+                numOfCharactersInFinalLString , -20, 20);
+        Vector3 lastPrefabLocationHighpoint = CalculateLastPositionHeight ( lStringData.prefabToSpawn );
+        Quaternion angleToGrow = Quaternion.identity;
+        ActionType lastActionType = ActionType.NoAction;
+
+        int count = 0;
 
         foreach (var c in finalString)
         {
@@ -40,31 +48,48 @@ public class LSystemReadStrings : MonoBehaviour
                     case ActionType.GROW_OBJECT:
                         // This code can be right after the if statement 
                         // once details of implementation is ironed out
-                        Vector3 newInstantiationLocation = lastInstantiationLocation 
+                        /* Vector3 newInstantiationLocation = lastInstantiationLocation 
                             + Vector3.forward;
                         instantiatedPrefab = Instantiate(lStringData.prefabToSpawn, 
                         newInstantiationLocation, Quaternion.identity);
-                        lastInstantiationLocation = newInstantiationLocation;
+                        lastInstantiationLocation = newInstantiationLocation; */
+                        if ( lastActionType == ActionType.ANGLE_OBJECT_POSITIVE || 
+                            lastActionType == ActionType.ANGLE_OBJECT_NEGATIVE)
+                        {
+                            instantiatedPrefab = Instantiate( lStringData.prefabToSpawn, 
+                                lastPrefabLocationHighpoint, angleToGrow );
+                        }
+                        else
+                        {
+                            instantiatedPrefab = Instantiate( lStringData.prefabToSpawn, 
+                                randomPositions[count], angleToGrow );
+                        }
+                        angleToGrow = Quaternion.identity;
                         yield return scaleCylinder( instantiatedPrefab.transform, lStringData );
                         break;
-                    case ActionType.CHANGE_OBJECT_ANGLE:
-                        Vector3 lastPrefabLocationHighpoint = 
+                    case ActionType.ANGLE_OBJECT_POSITIVE:
+                        lastPrefabLocationHighpoint = 
                             CalculateLastPositionHeight( instantiatedPrefab );
-                        Instantiate( lStringData.prefabToSpawn, lastPrefabLocationHighpoint, 
-                            Quaternion.Euler( lStringData.GetLSystemSettings().growthAngle, 0, 0 ) );
+                        angleToGrow = Quaternion.Euler( Mathf.Abs( 
+                            lStringData.GetLSystemSettings().growthAngle ), 0, 0);
+                        lastActionType = ActionType.ANGLE_OBJECT_POSITIVE;
                         break;
-                        //instantiatedPrefab = Instantiate(lStringData.prefabToSpawn, )
-                        //yield return 
+                    case ActionType.ANGLE_OBJECT_NEGATIVE:
+                        lastPrefabLocationHighpoint = 
+                            CalculateLastPositionHeight( instantiatedPrefab );
+                        angleToGrow = Quaternion.Euler( -Mathf.Abs( 
+                            lStringData.GetLSystemSettings().growthAngle ), 0, 0);
+                        lastActionType = ActionType.ANGLE_OBJECT_NEGATIVE;
+                        break;
                     default: 
-                        yield return null;
                         break;
                 }
             }
-            else
-            {
-                yield return null;
-            }
+
+            ++count;
         }
+
+        yield return null;
     }
 
     private static IEnumerator scaleCylinder( Transform trans, LStringData lStringData )
@@ -88,5 +113,23 @@ public class LSystemReadStrings : MonoBehaviour
         Vector3 prefabLocalScale = prefab.transform.localScale;
         Vector3 highestPoint = prefabStartingPosition + new Vector3 (0, 2 * prefabLocalScale.y, 0);
         return highestPoint;
+    }
+
+    private static Vector3[] GenerateSetOfRandomNums( int numOfItems, 
+        int minValue, int maxValue )
+    {
+        HashSet<Vector3> randomValuesHash = new HashSet<Vector3>();
+        
+        while ( randomValuesHash.Count < numOfItems )
+        {  
+            randomValuesHash.Add( new Vector3 ( Random.Range( minValue, maxValue ), 0f, 
+                Random.Range( minValue, maxValue ) ) );
+        }
+
+        Vector3[] randomValuesArray = new Vector3[ numOfItems ];
+
+        randomValuesHash.CopyTo( randomValuesArray, 0 );
+
+        return randomValuesArray;
     }
 }

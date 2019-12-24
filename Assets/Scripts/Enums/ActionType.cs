@@ -2,5 +2,6 @@ public enum ActionType
 {
     NoAction,
     GROW_OBJECT,
-    CHANGE_OBJECT_ANGLE
+    ANGLE_OBJECT_POSITIVE,
+    ANGLE_OBJECT_NEGATIVE,
 }
