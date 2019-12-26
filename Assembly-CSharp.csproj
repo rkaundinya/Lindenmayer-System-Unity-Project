@@ -74,6 +74,9 @@
  <Reference Include="Unity.VSCode.Editor">
  <HintPath>/Users/Ram/Documents/GitHub/Lindenmayer-System-Unity-Project/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.TextMeshPro.Editor">
+ <HintPath>/Users/Ram/Documents/GitHub/Lindenmayer-System-Unity-Project/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Users/Ram/Documents/GitHub/Lindenmayer-System-Unity-Project/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -86,17 +89,14 @@
  <Reference Include="Unity.XR.Management.Editor">
  <HintPath>/Users/Ram/Documents/GitHub/Lindenmayer-System-Unity-Project/Library/ScriptAssemblies/Unity.XR.Management.Editor.dll</HintPath>
  </Reference>
- <Reference Include="UnityEditor.UI">
- <HintPath>/Users/Ram/Documents/GitHub/Lindenmayer-System-Unity-Project/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
- </Reference>
- <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>/Users/Ram/Documents/GitHub/Lindenmayer-System-Unity-Project/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
- </Reference>
  <Reference Include="Unity.Rider.Editor">
  <HintPath>/Users/Ram/Documents/GitHub/Lindenmayer-System-Unity-Project/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
  <HintPath>/Users/Ram/Documents/GitHub/Lindenmayer-System-Unity-Project/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.UI">
+ <HintPath>/Users/Ram/Documents/GitHub/Lindenmayer-System-Unity-Project/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine">
  <HintPath>/Applications/Unity/Hub/Editor/2019.3.0b10/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
