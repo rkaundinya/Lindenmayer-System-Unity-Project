@@ -33,8 +33,7 @@ public class LSystemReadStrings : MonoBehaviour
         int numOfCharactersInFinalLString = finalString.Length;
         Vector3[] randomPositions = GenerateSetOfRandomNums ( 
                 numOfCharactersInFinalLString , -20, 20);
-        Vector3 lastPrefabLocationHighpoint = CalculateLastPositionHeight ( 
-            lStringData.prefabToSpawn, Quaternion.identity );
+        Vector3 lastPrefabLocationHighpoint = Vector3.zero;
         Quaternion angleToGrow = Quaternion.identity;
         ActionType lastActionType = ActionType.NoAction;
 
@@ -63,6 +62,13 @@ public class LSystemReadStrings : MonoBehaviour
                         else
                         {
                             angleToGrow = Quaternion.identity;
+
+                            // Debug cube to highlight stored positions
+                            /* GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                            cube.transform.position = lastPrefabLocationHighpoint; */
+
+                            /* instantiatedPrefab = Instantiate( lStringData.prefabToSpawn, 
+                                lastPrefabLocationHighpoint, angleToGrow ); */
                             instantiatedPrefab = Instantiate( lStringData.prefabToSpawn, 
                                 randomPositions[count], angleToGrow );
                         }
@@ -72,8 +78,12 @@ public class LSystemReadStrings : MonoBehaviour
                         yield return scaleCylinder( instantiatedPrefab.transform, lStringData );
                         break;
                     case ActionType.ANGLE_OBJECT_POSITIVE:
+                        // Debug sphere to highlight stored positions
+                        /* GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                        sphere.transform.position = lastPrefabLocationHighpoint; */
+
                         lastPrefabLocationHighpoint = 
-                            CalculateLastPositionHeight( instantiatedPrefab, angleToGrow );
+                                CalculateLastPositionHeight( instantiatedPrefab, angleToGrow );
                         angleToGrow = Quaternion.Euler( Mathf.Abs( 
                             lStringData.GetLSystemSettings().growthAngle ), 0, 0);
                         lastActionType = ActionType.ANGLE_OBJECT_POSITIVE;
@@ -111,13 +121,27 @@ public class LSystemReadStrings : MonoBehaviour
         yield return null;
     }
 
-    private static Vector3 CalculateLastPositionHeight( GameObject prefab, Quaternion rotation )
+    private static Vector3 CalculateLastPositionHeight( GameObject prefab, 
+        Quaternion rotation )
     {
         Vector3 prefabStartingPosition = prefab.transform.position;
         Vector3 prefabLocalScale = prefab.transform.localScale;
-        Vector3 directionVector = rotation * Vector3.up;
-        Vector3 highestPoint = prefabStartingPosition + 
+        
+        Vector3 directionVector = Vector3.zero;
+        Vector3 highestPoint = Vector3.zero;
+
+        if ( rotation == Quaternion.identity)
+        {
+            directionVector = Vector3.up;    
+        }
+        else
+        {
+            directionVector = rotation * Vector3.up;
+        }
+
+        highestPoint = prefabStartingPosition + 
             ( 2 * prefabLocalScale.y ) * directionVector;
+        
         return highestPoint;
     }
 
