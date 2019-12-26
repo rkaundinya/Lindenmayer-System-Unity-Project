@@ -1,29 +1,54 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class LSystemsMain : MonoBehaviour
 {
     [SerializeField]
+    private LStringData lStringDataContainer;
+    [SerializeField]
+    private GameObject prefabToSpawn;
+    [SerializeField]
     private RuleMap[] mutationRules;
+    [SerializeField]
+    private LSystemCharActionPairs[] charActionPairs;
+    [SerializeField]
+    private LSystemSettings lSystemSettings;
+    private int numOfLStringCharTypes;
 
-    LStringData lStringData = new LStringData();
+    [HideInInspector]
+    public int openTab;
+    [HideInInspector]
+    public string currentTabName;
 
     private void Awake() 
     {
-        AddUserInputtedRulesToLStringDataRuleMap();
-        // LSystemGenerationRules.AddRuleToRuleMap('F', "F-F", lStringData);
-        AddCharActionPairToLStringCharMap('F', 
-            new Action<GameObject>(LSystemActions.TestFunc2), lStringData);
-        GenerateLStrings.GenerateStringMutations("F", 3, lStringData);
+        InitializeLStringData();
+        GenerateLStrings.GenerateStringMutations(lSystemSettings.axiom, 
+            lSystemSettings.totalNumOfMutations, lStringDataContainer);
+        // lStringDataContainer.PrintFinalLString();
     }
 
     private void Start() 
     {
-        Debug.Log(lStringData.LSystemCharToActionMap.ContainsKey('F'));
-        Debug.Log(lStringData.LSystemStrings.Count);
-        LSystemReadStrings.ReadSpecificStringAction(lStringData.LSystemStrings, gameObject, 
-            lStringData);
+        LSystemReadStrings.ReadFinalString(lStringDataContainer);
+    }
+
+    private void InitializeLStringData()
+    {
+        lStringDataContainer.ClearAllData();
+        AddUniqueUserInputCharsToLStringCharTypes();
+        AddUserInputtedRulesToLStringDataRuleMap();
+        lStringDataContainer.prefabToSpawn = prefabToSpawn;
+        lStringDataContainer.CopyLSystemSettings( lSystemSettings );
+    }
+
+    public void OnEditorDataUpdate()
+    {
+        lStringDataContainer.LStringCharacterTypes.Clear();
+        AddUniqueUserInputCharsToLStringCharTypes();
+        UpdateNumOfCharActionPairs();
+        UpdateCharOfEachCharActionPair();
     }
 
     private void AddUserInputtedRulesToLStringDataRuleMap()
@@ -31,25 +56,82 @@ public class LSystemsMain : MonoBehaviour
         foreach (var rule in mutationRules)
         {
             LSystemGenerationRules.AddRuleToRuleMap(rule.charToMutate, 
-                rule.stringToMutateTo, lStringData);
+                rule.stringToMutateTo, lStringDataContainer);
+        }
+
+        foreach ( var pair in charActionPairs )
+        {
+            if ( pair.isADummyCommand )
+            {
+                lStringDataContainer.LSystemDummyCommands.Add(pair.character);
+            }
+            AddCharActionPairToLStringCharMap( pair.character, pair.actionType, 
+                lStringDataContainer );
         }
     }
 
-    private void AddDummyCharToLStringDummyCommands (char symbol, LStringData lStringData)
+    private void AddUniqueUserInputCharsToLStringCharTypes()
     {
-        lStringData.LSystemDummyCommands.Add(symbol);
+        foreach (var rule in mutationRules)
+        {
+            foreach ( var character in rule.stringToMutateTo )
+            {
+                if ( lStringDataContainer.LStringCharacterTypes.Contains ( 
+                    character ) == false )
+                {
+                    lStringDataContainer.LStringCharacterTypes.Add(character);
+                }  
+            }
+
+            if (lStringDataContainer.LStringCharacterTypes.Contains (
+                rule.charToMutate ) == false )
+            {
+                lStringDataContainer.LStringCharacterTypes.Add( rule.charToMutate );
+            }
+        }
+
+        foreach (var character in lSystemSettings.axiom)
+        {
+            if ( lStringDataContainer.LStringCharacterTypes.Contains ( character ) 
+                == false)
+            {
+                lStringDataContainer.LStringCharacterTypes.Add( character );
+            }
+        }
+
+        numOfLStringCharTypes = lStringDataContainer.LStringCharacterTypes.Count;
     }
 
-    private void AddCharActionPairToLStringCharMap(char symbol, Delegate actionToDo, 
+    private void AddCharActionPairToLStringCharMap(char symbol, ActionType actionToDo, 
         LStringData lStringData)
     {
-        lStringData.LSystemCharToActionMap.Add(symbol, actionToDo);
+        lStringData.LSystemCharToActionMap.Add( symbol, actionToDo );
     }
-}
 
-[Serializable]
-public struct RuleMap
-{
-    public char charToMutate;
-    public string stringToMutateTo;
+    public LStringData GetLStringData()
+    {
+        return lStringDataContainer;
+    }
+
+    private void UpdateNumOfCharActionPairs()
+    {
+        Array.Resize( ref charActionPairs, numOfLStringCharTypes );
+    }
+
+    private void UpdateCharOfEachCharActionPair()
+    {
+        if ( charActionPairs.Length == lStringDataContainer.LStringCharacterTypes.Count )
+        {
+            int count = 0;
+            foreach ( var character in lStringDataContainer.LStringCharacterTypes )
+            {
+                charActionPairs[count].character = character;
+                ++count;
+            }
+        }
+        else
+        {
+            Debug.LogError( "Length of Char Action Pairs and saved character types does not match" );
+        }
+    }
 }

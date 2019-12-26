@@ -44,12 +44,24 @@
     <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
-  <ItemGroup>     <Compile Include="Assets\Scripts\GenerateLStrings.cs" />
+  <ItemGroup>     <Compile Include="Assets\Scripts\Custom Editor\LSystemsMainEditor.cs" />
+     <Compile Include="Assets\Scripts\CylinderGrowth.cs" />
+     <Compile Include="Assets\Scripts\CylinderSingleSideGrowth.cs" />
+     <Compile Include="Assets\Scripts\Enums\ActionType.cs" />
+     <Compile Include="Assets\Scripts\GenerateEnum.cs" />
+     <Compile Include="Assets\Scripts\GenerateLStrings.cs" />
      <Compile Include="Assets\Scripts\LStringData.cs" />
      <Compile Include="Assets\Scripts\LSystemActions.cs" />
+     <Compile Include="Assets\Scripts\LSystemCharActionPairs.cs" />
      <Compile Include="Assets\Scripts\LSystemGenerationRules.cs" />
      <Compile Include="Assets\Scripts\LSystemReadStrings.cs" />
      <Compile Include="Assets\Scripts\LSystemsMain.cs" />
+     <Compile Include="Assets\Scripts\Structs\LSystemSettings.cs" />
+     <Compile Include="Assets\Scripts\Structs\RuleMap.cs" />
+     <Compile Include="Assets\Scripts\TestScript.cs" />
+     <Compile Include="Assets\Tween\Demo\TweenDemo.cs" />
+     <Compile Include="Assets\Tween\Tween.cs" />
+     <None Include="Assets\Tween\Readme.txt" />
  <Reference Include="Unity.XR.Management">
  <HintPath>/Users/Ram/Documents/GitHub/Lindenmayer-System-Unity-Project/Library/ScriptAssemblies/Unity.XR.Management.dll</HintPath>
  </Reference>
@@ -61,9 +73,6 @@
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
  <HintPath>/Users/Ram/Documents/GitHub/Lindenmayer-System-Unity-Project/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>/Users/Ram/Documents/GitHub/Lindenmayer-System-Unity-Project/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Users/Ram/Documents/GitHub/Lindenmayer-System-Unity-Project/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
@@ -77,14 +86,17 @@
  <Reference Include="Unity.XR.Management.Editor">
  <HintPath>/Users/Ram/Documents/GitHub/Lindenmayer-System-Unity-Project/Library/ScriptAssemblies/Unity.XR.Management.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor.UI">
+ <HintPath>/Users/Ram/Documents/GitHub/Lindenmayer-System-Unity-Project/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.TextMeshPro.Editor">
+ <HintPath>/Users/Ram/Documents/GitHub/Lindenmayer-System-Unity-Project/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.Rider.Editor">
  <HintPath>/Users/Ram/Documents/GitHub/Lindenmayer-System-Unity-Project/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
  <HintPath>/Users/Ram/Documents/GitHub/Lindenmayer-System-Unity-Project/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.UI">
- <HintPath>/Users/Ram/Documents/GitHub/Lindenmayer-System-Unity-Project/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine">
  <HintPath>/Applications/Unity/Hub/Editor/2019.3.0b10/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
